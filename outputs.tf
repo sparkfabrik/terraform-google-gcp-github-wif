@@ -52,7 +52,7 @@ output "secret_names" {
   value       = local.formatted_secret_names
 }
 
-output "secret_project_id" {
+output "secret_gcp_project_id" {
   description = "The GCP project ID where secrets are stored."
   value       = local.secret_gcp_project_id
 }
