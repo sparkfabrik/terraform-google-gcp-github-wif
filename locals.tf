@@ -92,7 +92,7 @@ locals {
   # Clean and format each secret name
   formatted_secret_names = {
     for name in var.secret_names :
-    name => substr("${local.secret_prefix}${lower(replace(replace(name, "_", "-"), "/[^a-z0-9-]/", ""))}", 0, local.max_secret_name_length)
+    name => substr("${local.secret_prefix}${lower(replace(replace(name, "_", "-"), "/[^a-z0-9-]/", ""))}", 0, 255)
   }
 
   secret_gcp_project_id = var.secret_gcp_project_id != null ? var.secret_gcp_project_id : var.gcp_project_id
