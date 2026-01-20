@@ -106,9 +106,9 @@ variable "github_token_issuer_url" {
 }
 
 variable "github_gcp_wif_project_id_variable_name" {
-  description = "The name of the GitHub Actions variable to store the GCP project number for WIF."
+  description = "The name of the GitHub Actions variable to store the GCP project ID for WIF."
   type        = string
-  default     = "GCP_WIF_PROJECT_NUMBER"
+  default     = "GCP_WIF_PROJECT_ID"
 }
 
 variable "github_gcp_wif_pool_variable_name" {
