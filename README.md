@@ -35,8 +35,8 @@ module "github_wif" {
   name           = "org-github-wif"
   gcp_project_id = "my-gcp-project-id"
 
-  github_organization_name = "my-org"
-  github_organization_id   = 12345678
+  # Use either organization name OR organization ID, not both
+  github_organization_id = 12345678
 }
 ```
 
@@ -55,8 +55,8 @@ module "github_wif" {
   gcp_project_id = "my-gcp-project-id"
 
   # Enterprise-level WIF access (GitHub Enterprise Cloud only)
-  github_enterprise_name = "my-enterprise"
-  github_enterprise_id   = "123456"
+  # Use either enterprise name OR enterprise ID, not both
+  github_enterprise_id = "123456"
 
   # Variables must still be set at org or repo level
   github_organization_name = "my-org"
@@ -72,8 +72,8 @@ module "github_wif" {
   name           = "org-github-wif"
   gcp_project_id = "my-gcp-project-id"
 
-  github_organization_name = "my-org"
-  github_organization_id   = 12345678
+  # Use either organization name OR organization ID, not both
+  github_organization_id = 12345678
 
   # Only allow specific repositories to access the variables
   github_organization_variables_visibility              = "selected"
