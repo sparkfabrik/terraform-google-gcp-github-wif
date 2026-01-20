@@ -1,13 +1,6 @@
 # GitHub Actions variables for Workload Identity Federation
 # Repository-level variables for each specified repository
 
-# Fetch repository data for repositories specified by name
-data "github_repository" "this" {
-  for_each = var.github_create_oidc_variables ? toset(var.github_repository_names) : []
-
-  full_name = each.value
-}
-
 # Create WIF variables at repository level
 resource "github_actions_variable" "gcp_wif_project_number" {
   for_each = var.github_create_oidc_variables ? toset(var.github_repository_names) : []
