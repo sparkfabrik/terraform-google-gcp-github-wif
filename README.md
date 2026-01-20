@@ -59,7 +59,8 @@ module "github_wif" {
   github_enterprise_id = "123456"
 
   # Variables must still be set at org or repo level
-  github_organization_name = "my-org"
+  # Using ID to be consistent with enterprise ID usage
+  github_organization_id = 12345678
 }
 ```
 
