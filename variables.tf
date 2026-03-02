@@ -19,8 +19,8 @@ variable "gcp_workload_identity_pool_provider_attribute_mapping" {
   description = "A map of attribute mappings for the GCP Workload Identity Federation provider. This allows you to customize how attributes are mapped from GitHub to GCP."
   type        = map(string)
   default = {
-    # google.subject must be unique per token - using repository + run_id + run_attempt
-    "google.subject"                  = "assertion.repository+\"::run:\"+assertion.run_id+\"::attempt:\"+assertion.run_attempt"
+    # google.subject must be unique per token - using actor + run_id + run_attempt
+    "google.subject"                  = "assertion.actor+\"::run:\"+assertion.run_id+\"::attempt:\"+assertion.run_attempt"
     "attribute.actor"                 = "assertion.actor"
     "attribute.actor_id"              = "assertion.actor_id"
     "attribute.repository"            = "assertion.repository"
