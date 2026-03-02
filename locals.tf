@@ -86,8 +86,7 @@ locals {
   workload_identity_provider = "projects/${data.google_project.project.number}/locations/global/workloadIdentityPools/${google_iam_workload_identity_pool.this.workload_identity_pool_id}/providers/${google_iam_workload_identity_pool_provider.this.workload_identity_pool_provider_id}"
 
   # Create a prefix for secrets and ensure the final name is valid and under 255 characters
-  secret_prefix          = "${var.name}-"
-  max_secret_name_length = 255 - length(local.secret_prefix)
+  secret_prefix = "${var.name}-"
 
   # Clean and format each secret name
   formatted_secret_names = {
