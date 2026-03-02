@@ -19,23 +19,15 @@ locals {
   # GitHub uses "repository_owner_id" claim for organization ID
   organization_attribute_condition = var.github_organization_id != null ? "(attribute.repository_owner_id==\"${var.github_organization_id}\")" : null
 
-  # Organization by name condition
-  organization_name_attribute_condition = var.github_organization_name != null && var.github_organization_id == null ? "(attribute.repository_owner==\"${var.github_organization_name}\")" : null
-
   # Build attribute condition for enterprise access (GitHub Enterprise Cloud only)
   enterprise_attribute_condition = var.github_enterprise_id != null ? "(attribute.enterprise_id==\"${var.github_enterprise_id}\")" : null
-
-  # Enterprise by name condition
-  enterprise_name_attribute_condition = var.github_enterprise_name != null && var.github_enterprise_id == null ? "(attribute.enterprise==\"${var.github_enterprise_name}\")" : null
 
   # Combine all conditions
   base_attribute_condition = join(" || ", compact([
     local.repositories_attribute_condition,
     local.repository_ids_attribute_condition,
     local.organization_attribute_condition,
-    local.organization_name_attribute_condition,
     local.enterprise_attribute_condition,
-    local.enterprise_name_attribute_condition,
   ]))
 
   # Add additional condition if provided
@@ -49,9 +41,7 @@ locals {
     { for repo in var.github_repository_names : "${local.repository_resource_suffix}-${replace(repo, "/", "-")}" => "attribute.repository/${repo}" },
     { for id in var.github_repository_ids : "${local.repository_resource_suffix}-id-${id}" => "attribute.repository_id/${id}" },
     var.github_organization_id != null ? { (local.organization_resource_suffix) = "attribute.repository_owner_id/${var.github_organization_id}" } : {},
-    var.github_organization_name != null && var.github_organization_id == null ? { "${local.organization_resource_suffix}-name" = "attribute.repository_owner/${var.github_organization_name}" } : {},
     var.github_enterprise_id != null ? { (local.enterprise_resource_suffix) = "attribute.enterprise_id/${var.github_enterprise_id}" } : {},
-    var.github_enterprise_name != null && var.github_enterprise_id == null ? { "${local.enterprise_resource_suffix}-name" = "attribute.enterprise/${var.github_enterprise_name}" } : {},
   )
 
   principal_sets = {

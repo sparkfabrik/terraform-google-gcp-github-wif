@@ -49,7 +49,7 @@ variable "gcp_workload_identity_pool_provider_attribute_mapping" {
 
 # GitHub variables
 variable "github_organization_id" {
-  description = "The GitHub organization ID to allow access from. Use this for organization-level access. Cannot be used together with github_organization_name."
+  description = "The GitHub organization ID to allow access from. Use this for organization-level access."
   type        = number
   default     = null
 
@@ -59,20 +59,8 @@ variable "github_organization_id" {
   }
 }
 
-variable "github_organization_name" {
-  description = "The GitHub organization name. Use this for organization-level access when you prefer to use the organization name instead of the ID. Cannot be used together with github_organization_id."
-  type        = string
-  default     = null
-}
-
-variable "github_enterprise_name" {
-  description = "The GitHub Enterprise name to allow access from. Only available with GitHub Enterprise Cloud. Cannot be used together with github_enterprise_id."
-  type        = string
-  default     = null
-}
-
 variable "github_enterprise_id" {
-  description = "The GitHub Enterprise ID to allow access from. Only available with GitHub Enterprise Cloud. Cannot be used together with github_enterprise_name."
+  description = "The GitHub Enterprise ID to allow access from. Only available with GitHub Enterprise Cloud."
   type        = string
   default     = null
 }

@@ -21,8 +21,7 @@ module "github_wif" {
   github_repository_names = var.github_repositories
 
   # Option 2: Organization-level access (use with caution - allows all repos in org)
-  # github_organization_name = var.github_organization
-  # github_organization_id   = var.github_organization_id
+  # github_organization_id = var.github_organization_id
 
   # Optional: Add additional conditions for security
   # github_attribute_condition_additional = "attribute.ref==\"refs/heads/main\""

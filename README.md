@@ -35,7 +35,6 @@ module "github_wif" {
   name           = "org-github-wif"
   gcp_project_id = "my-gcp-project-id"
 
-  # Use either organization name OR organization ID, not both
   github_organization_id = 12345678
 }
 ```
@@ -55,11 +54,9 @@ module "github_wif" {
   gcp_project_id = "my-gcp-project-id"
 
   # Enterprise-level WIF access (GitHub Enterprise Cloud only)
-  # Use either enterprise name OR enterprise ID, not both
   github_enterprise_id = "123456"
 
   # Variables must still be set at org or repo level
-  # Using ID to be consistent with enterprise ID usage
   github_organization_id = 12345678
 }
 ```
@@ -73,7 +70,6 @@ module "github_wif" {
   name           = "org-github-wif"
   gcp_project_id = "my-gcp-project-id"
 
-  # Use either organization name OR organization ID, not both
   github_organization_id = 12345678
 
   # Only allow specific repositories to access the variables
@@ -198,8 +194,6 @@ This module maps the following GitHub OIDC token claims to GCP attributes:
 | gcp_existing_service_account_account_id | The account_id of an existing service account to use | `string` | `null` | no |
 | gcp_workload_identity_pool_provider_attribute_mapping | Custom attribute mappings for the OIDC provider | `map(string)` | See variables.tf | no |
 | github_organization_id | GitHub organization ID for org-level access | `number` | `null` | no |
-| github_organization_name | GitHub organization name | `string` | `null` | no |
-| github_enterprise_name | GitHub Enterprise name (Enterprise Cloud only) | `string` | `null` | no |
 | github_enterprise_id | GitHub Enterprise ID (Enterprise Cloud only) | `string` | `null` | no |
 | github_repository_ids | GitHub repository IDs for repo-level access | `list(number)` | `[]` | no |
 | github_repository_names | GitHub repository names (owner/repo format) | `list(string)` | `[]` | no |

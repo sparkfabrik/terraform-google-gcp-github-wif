@@ -16,20 +16,8 @@ resource "google_iam_workload_identity_pool" "this" {
   lifecycle {
     # Prevent creation of resources if the module is not configured correctly
     precondition {
-      condition     = var.github_organization_id != null || var.github_organization_name != null || length(var.github_repository_ids) > 0 || length(var.github_repository_names) > 0
-      error_message = "At least one of github_organization_id, github_organization_name, github_repository_ids, or github_repository_names must be provided."
-    }
-    
-    # Prevent both organization name and ID from being set
-    precondition {
-      condition     = !(var.github_organization_id != null && var.github_organization_name != null)
-      error_message = "Cannot set both github_organization_id and github_organization_name. Please use only one."
-    }
-    
-    # Prevent both enterprise name and ID from being set
-    precondition {
-      condition     = !(var.github_enterprise_id != null && var.github_enterprise_name != null)
-      error_message = "Cannot set both github_enterprise_id and github_enterprise_name. Please use only one."
+      condition     = var.github_organization_id != null || length(var.github_repository_ids) > 0 || length(var.github_repository_names) > 0
+      error_message = "At least one of github_organization_id, github_repository_ids, or github_repository_names must be provided."
     }
   }
 }
