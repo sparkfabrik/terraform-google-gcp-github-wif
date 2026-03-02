@@ -59,18 +59,6 @@ variable "github_organization_id" {
   }
 }
 
-variable "github_organization_name" {
-  description = "The GitHub organization name. Required when using github_organization_id or github_repository_names."
-  type        = string
-  default     = null
-}
-
-variable "github_enterprise_name" {
-  description = "The GitHub Enterprise name to allow access from. Only available with GitHub Enterprise Cloud."
-  type        = string
-  default     = null
-}
-
 variable "github_enterprise_id" {
   description = "The GitHub Enterprise ID to allow access from. Only available with GitHub Enterprise Cloud."
   type        = string
