@@ -33,7 +33,7 @@ Organization-level variables support three visibility modes matching GitHub's op
 - `selected` - Only specified repositories can access
 
 ### Attribute Mapping Strategy
-The module maps all standard GitHub OIDC claims to GCP attributes by default, including Enterprise Cloud claims. The `google.subject` field uses `repository + run_id + run_attempt` to ensure uniqueness per token.
+The module maps all standard GitHub OIDC claims to GCP attributes by default, including Enterprise Cloud claims. The `google.subject` field uses `actor + run_id + run_attempt` to ensure uniqueness per token.
 
 ### Secret Manager Integration
 The module creates empty Secret Manager secrets and grants the WIF service account `secretAccessor` role. Users add secret values manually to keep sensitive data out of Terraform state.
