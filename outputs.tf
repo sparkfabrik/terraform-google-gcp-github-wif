@@ -38,9 +38,7 @@ output "attribute_condition" {
 output "github_actions_variables" {
   description = "The GitHub Actions variables created by this module."
   value = {
-    (var.github_gcp_wif_project_id_variable_name)                 = data.google_project.project.number
-    (var.github_gcp_wif_pool_variable_name)                       = google_iam_workload_identity_pool.this.workload_identity_pool_id
-    (var.github_gcp_wif_provider_variable_name)                   = google_iam_workload_identity_pool_provider.this.workload_identity_pool_provider_id
+    (var.github_gcp_wif_project_id_variable_name)                 = data.google_project.project.project_id,
     (var.github_gcp_wif_service_account_email_variable_name)      = local.sa_email
     (var.github_gcp_wif_workload_identity_provider_variable_name) = local.workload_identity_provider
   }

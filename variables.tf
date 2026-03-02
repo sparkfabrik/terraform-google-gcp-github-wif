@@ -99,18 +99,6 @@ variable "github_gcp_wif_project_id_variable_name" {
   default     = "GCP_WIF_PROJECT_ID"
 }
 
-variable "github_gcp_wif_pool_variable_name" {
-  description = "The name of the GitHub Actions variable to store the GCP WIF pool name."
-  type        = string
-  default     = "GCP_WIF_POOL"
-}
-
-variable "github_gcp_wif_provider_variable_name" {
-  description = "The name of the GitHub Actions variable to store the GCP WIF provider name."
-  type        = string
-  default     = "GCP_WIF_PROVIDER"
-}
-
 variable "github_gcp_wif_service_account_email_variable_name" {
   description = "The name of the GitHub Actions variable to store the GCP WIF service account email."
   type        = string

@@ -2,28 +2,12 @@
 # Repository-level variables for each specified repository
 
 # Create WIF variables at repository level
-resource "github_actions_variable" "gcp_wif_project_number" {
+resource "github_actions_variable" "gcp_wif_project_id" {
   for_each = var.github_create_oidc_variables ? toset(var.github_repository_names) : []
 
   repository    = local.parsed_repositories[each.value].name
   variable_name = var.github_gcp_wif_project_id_variable_name
-  value         = data.google_project.project.number
-}
-
-resource "github_actions_variable" "gcp_wif_pool" {
-  for_each = var.github_create_oidc_variables ? toset(var.github_repository_names) : []
-
-  repository    = local.parsed_repositories[each.value].name
-  variable_name = var.github_gcp_wif_pool_variable_name
-  value         = google_iam_workload_identity_pool.this.workload_identity_pool_id
-}
-
-resource "github_actions_variable" "gcp_wif_provider" {
-  for_each = var.github_create_oidc_variables ? toset(var.github_repository_names) : []
-
-  repository    = local.parsed_repositories[each.value].name
-  variable_name = var.github_gcp_wif_provider_variable_name
-  value         = google_iam_workload_identity_pool_provider.this.workload_identity_pool_provider_id
+  value         = data.google_project.project.project_id
 }
 
 resource "github_actions_variable" "gcp_wif_service_account_email" {
@@ -63,30 +47,12 @@ resource "github_actions_variable" "additional" {
 }
 
 # Organization-level variables (when github_organization_id is provided)
-resource "github_actions_organization_variable" "gcp_wif_project_number" {
+resource "github_actions_organization_variable" "gcp_wif_project_id" {
   count = var.github_create_oidc_variables && var.github_organization_id != null && length(var.github_repository_names) == 0 ? 1 : 0
 
   variable_name           = var.github_gcp_wif_project_id_variable_name
   visibility              = var.github_organization_variables_visibility
-  value                   = data.google_project.project.number
-  selected_repository_ids = var.github_organization_variables_visibility == "selected" ? var.github_organization_variables_selected_repository_ids : null
-}
-
-resource "github_actions_organization_variable" "gcp_wif_pool" {
-  count = var.github_create_oidc_variables && var.github_organization_id != null && length(var.github_repository_names) == 0 ? 1 : 0
-
-  variable_name           = var.github_gcp_wif_pool_variable_name
-  visibility              = var.github_organization_variables_visibility
-  value                   = google_iam_workload_identity_pool.this.workload_identity_pool_id
-  selected_repository_ids = var.github_organization_variables_visibility == "selected" ? var.github_organization_variables_selected_repository_ids : null
-}
-
-resource "github_actions_organization_variable" "gcp_wif_provider" {
-  count = var.github_create_oidc_variables && var.github_organization_id != null && length(var.github_repository_names) == 0 ? 1 : 0
-
-  variable_name           = var.github_gcp_wif_provider_variable_name
-  visibility              = var.github_organization_variables_visibility
-  value                   = google_iam_workload_identity_pool_provider.this.workload_identity_pool_provider_id
+  value                   = data.google_project.project.project_id
   selected_repository_ids = var.github_organization_variables_visibility == "selected" ? var.github_organization_variables_selected_repository_ids : null
 }
 
