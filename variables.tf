@@ -54,7 +54,7 @@ variable "github_organization_id" {
   default     = null
 
   validation {
-    condition     = var.github_organization_id == null || var.github_organization_id > 0
+    condition     = var.github_organization_id == null ? true : var.github_organization_id > 0
     error_message = "github_organization_id must be a valid positive GitHub organization ID or null."
   }
 }
