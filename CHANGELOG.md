@@ -8,6 +8,14 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-03-04
+
+[Compare with previous version](https://github.com/sparkfabrik/terraform-google-gcp-github-wif/compare/0.1.1...0.2.0)
+
+- Remove `github_repository_ids` variable and all related logic.
+- Fetch repository IDs dynamically using the GitHub provider based on the provided `github_repository_names`.
+- Update the logic used in federation using repository names to reference the dynamically fetched repository IDs instead of relying on names directly.
+
 ## [0.1.1] - 2026-03-04
 
 [Compare with previous version](https://github.com/sparkfabrik/terraform-google-gcp-github-wif/compare/0.1.0...0.1.1)

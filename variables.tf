@@ -48,6 +48,12 @@ variable "gcp_workload_identity_pool_provider_attribute_mapping" {
 }
 
 # GitHub variables
+variable "github_enterprise_id" {
+  description = "The GitHub Enterprise ID to allow access from. Only available with GitHub Enterprise Cloud."
+  type        = string
+  default     = null
+}
+
 variable "github_organization_id" {
   description = "The GitHub organization ID to allow access from. Use this for organization-level access."
   type        = number
@@ -56,23 +62,6 @@ variable "github_organization_id" {
   validation {
     condition     = var.github_organization_id == null ? true : var.github_organization_id > 0
     error_message = "github_organization_id must be a valid positive GitHub organization ID or null."
-  }
-}
-
-variable "github_enterprise_id" {
-  description = "The GitHub Enterprise ID to allow access from. Only available with GitHub Enterprise Cloud."
-  type        = string
-  default     = null
-}
-
-variable "github_repository_ids" {
-  description = "The GitHub repository IDs to allow access from. Use this for repository-level access."
-  type        = list(number)
-  default     = []
-
-  validation {
-    condition     = length(var.github_repository_ids) == 0 || alltrue([for id in var.github_repository_ids : id > 0])
-    error_message = "github_repository_ids must be a valid list of GitHub repository IDs or an empty list."
   }
 }
 

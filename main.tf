@@ -16,8 +16,8 @@ resource "google_iam_workload_identity_pool" "this" {
   lifecycle {
     # Prevent creation of resources if the module is not configured correctly
     precondition {
-      condition     = var.github_organization_id != null || length(var.github_repository_ids) > 0 || length(var.github_repository_names) > 0
-      error_message = "At least one of github_organization_id, github_repository_ids, or github_repository_names must be provided."
+      condition     = var.github_organization_id != null || length(var.github_repository_names) > 0
+      error_message = "At least one of github_organization_id or github_repository_names must be provided."
     }
   }
 }
