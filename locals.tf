@@ -10,10 +10,7 @@ locals {
 
   # Build attribute condition for repository access
   # GitHub uses "repository" claim in format "owner/repo"
-  repositories_attribute_condition = length(var.github_repository_names) > 0 ? "(${join(" || ", [for repo in var.github_repository_names : "attribute.repository==\"${repo}\""])})" : null
-
-  # Build attribute condition for repository ID access
-  repository_ids_attribute_condition = length(var.github_repository_ids) > 0 ? "(${join(" || ", [for id in var.github_repository_ids : "attribute.repository_id==\"${id}\""])})" : null
+  repositories_attribute_condition = length(var.github_repository_names) > 0 ? "(${join(" || ", [for repo in var.github_repository_names : "attribute.repository_id==\"${data.github_repository.repositories[repo].repo_id}\""])})" : null
 
   # Build attribute condition for organization access
   # GitHub uses "repository_owner_id" claim for organization ID
@@ -25,7 +22,6 @@ locals {
   # Combine all conditions
   base_attribute_condition = join(" || ", compact([
     local.repositories_attribute_condition,
-    local.repository_ids_attribute_condition,
     local.organization_attribute_condition,
     local.enterprise_attribute_condition,
   ]))
@@ -38,8 +34,7 @@ locals {
   # For organization, we bind to the repository_owner_id attribute
   # For enterprise, we bind to the enterprise_id attribute
   principal_subjects = merge(
-    { for repo in var.github_repository_names : "${local.repository_resource_suffix}-${replace(repo, "/", "-")}" => "attribute.repository/${repo}" },
-    { for id in var.github_repository_ids : "${local.repository_resource_suffix}-id-${id}" => "attribute.repository_id/${id}" },
+    { for repo in var.github_repository_names : "${local.repository_resource_suffix}-${replace(repo, "/", "-")}" => "attribute.repository_id/${data.github_repository.repositories[repo].repo_id}" },
     var.github_organization_id != null ? { (local.organization_resource_suffix) = "attribute.repository_owner_id/${var.github_organization_id}" } : {},
     var.github_enterprise_id != null ? { (local.enterprise_resource_suffix) = "attribute.enterprise_id/${var.github_enterprise_id}" } : {},
   )
@@ -92,6 +87,7 @@ locals {
     repo => {
       owner = split("/", repo)[0]
       name  = split("/", repo)[1]
+      id    = data.github_repository.repositories[repo].repo_id
     }
   }
 }
