@@ -9,7 +9,7 @@ data "google_project" "project" {
 
 resource "google_iam_workload_identity_pool" "this" {
   project                   = var.gcp_project_id
-  workload_identity_pool_id = "pool-${substr(local.resource_name_suffix, 0, 32 - length("pool-"))}"
+  workload_identity_pool_id = "pool-${substr(local.resource_name_pool_suffix, 0, 32 - length("pool-"))}"
   display_name              = local.pool_display_name
   description               = "Identity pool for ${var.name}"
 
@@ -25,7 +25,7 @@ resource "google_iam_workload_identity_pool" "this" {
 resource "google_iam_workload_identity_pool_provider" "this" {
   project                            = var.gcp_project_id
   workload_identity_pool_id          = google_iam_workload_identity_pool.this.workload_identity_pool_id
-  workload_identity_pool_provider_id = "provider-${substr(local.resource_name_suffix, 0, 32 - length("provider-"))}"
+  workload_identity_pool_provider_id = "provider-${substr(local.resource_name_pool_suffix, 0, 32 - length("provider-"))}"
   display_name                       = local.provider_display_name
   description                        = "OIDC identity pool provider for ${var.name}"
   attribute_condition                = local.attribute_condition
